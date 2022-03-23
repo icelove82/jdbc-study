@@ -35,4 +35,8 @@ public class MovieController {
     }
 
    // TODO: Update movie
+    @PutMapping
+    public void updateMovie(@RequestBody Movie movie) {
+        movieService.updateMovie(movie);
+    }
 }
