@@ -1,5 +1,7 @@
 package com.amigoscode.movie;
 
+import com.amigoscode.actor.Actor;
+import com.amigoscode.actor.ActorDao;
 import com.amigoscode.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +12,20 @@ import java.util.Optional;
 public class MovieService {
 
     private final MovieDao movieDao;
+    private final ActorDao actorDao;
 
-    public MovieService(MovieDao movieDao) {
+    public MovieService(MovieDao movieDao, ActorDao actorDao) {
         this.movieDao = movieDao;
+        this.actorDao = actorDao;
     }
 
     public List<Movie> getMovies() {
-        return movieDao.selectMovies();
+        return movieDao.selectMovies()
+                .stream()
+                .map(m -> {
+                    List<Actor> actors = actorDao.selectActorsByMovie(m.id());
+                    return new Movie(m.id(), m.name(), actors, m.releaseDate());
+                }).toList();
     }
 
     public void addNewMovie(Movie movie) {

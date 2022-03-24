@@ -34,7 +34,6 @@ public class MovieController {
         movieService.deleteMovie(id);
     }
 
-   // TODO: Update movie
     @PutMapping
     public void updateMovie(@RequestBody Movie movie) {
         movieService.updateMovie(movie);

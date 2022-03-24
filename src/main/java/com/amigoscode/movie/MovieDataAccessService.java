@@ -1,7 +1,5 @@
 package com.amigoscode.movie;
 
-import com.amigoscode.actor.Actor;
-import com.amigoscode.actor.ActorDao;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -12,11 +10,9 @@ import java.util.Optional;
 public class MovieDataAccessService implements MovieDao {
 
     private final JdbcTemplate jdbcTemplate;
-    private final ActorDao actorDao;
 
-    public MovieDataAccessService(JdbcTemplate jdbcTemplate, ActorDao actorDao) {
+    public MovieDataAccessService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        this.actorDao = actorDao;
     }
 
     @Override
@@ -26,11 +22,7 @@ public class MovieDataAccessService implements MovieDao {
                 FROM movie
                 LIMIT 100;
                  """;
-        return jdbcTemplate.query(sql, new MovieRowMapper()).stream()
-                .map(movie -> {
-                    List<Actor> actors = actorDao.selectActorsByMovie(movie.id());
-                    return new Movie(movie.id(), movie.name(), actors, movie.releaseDate());
-                }).toList();
+        return jdbcTemplate.query(sql, new MovieRowMapper());
     }
 
     @Override
