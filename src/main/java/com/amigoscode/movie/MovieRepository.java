@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class MovieDataAccessService implements MovieDao {
+public class MovieRepository implements MovieDao {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public MovieDataAccessService(JdbcTemplate jdbcTemplate) {
+    public MovieRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

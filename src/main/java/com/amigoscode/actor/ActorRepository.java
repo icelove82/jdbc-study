@@ -6,11 +6,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class ActorDataAccessService implements ActorDao {
+public class ActorRepository implements ActorDao {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public ActorDataAccessService(JdbcTemplate jdbcTemplate) {
+    public ActorRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
